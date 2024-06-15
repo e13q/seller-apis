@@ -19,7 +19,7 @@ def get_product_list(page, campaign_id, access_token):
         access_token (str): Ключ API Yandex Market.
 
     Returns:
-        any: Данные из ответа поля "result" ответа в формате json.
+        list: Данные из ответа поля "result" ответа в формате json.
 
     Example:
         >>> get_product_list(page, campaign_id, access_token)
@@ -51,7 +51,7 @@ def update_stocks(stocks, campaign_id, access_token):
         access_token (str): Ключ API Yandex Market.
 
     Returns:
-        any: Возвращает ответ API Yandex Market в формате JSON.
+        list: Возвращает ответ API Yandex Market в формате JSON.
 
     Example:
         >>> update_stocks(stocks, campaign_id, access_token)
@@ -80,7 +80,7 @@ def update_price(prices, campaign_id, access_token):
         access_token (str): Ключ API Yandex Market.
 
     Returns:
-        any: Возвращает ответ API Yandex Market в формате JSON.
+        list: Возвращает ответ API Yandex Market в формате JSON.
 
     Example:
         >>> update_price([12000, 13000, 24000], campaign_id, access_token)

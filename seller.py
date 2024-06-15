@@ -20,7 +20,7 @@ def get_product_list(last_id, client_id, seller_token):
         seller_token (str): Ключ API Ozon.
 
     Returns:
-        any: Данные из ответа поля "result" ответа в формате json.
+        list: Данные из ответа поля "result" ответа в формате json.
 
     Example:
         >>> get_product_list(last_id, client_id, seller_token)
@@ -80,7 +80,7 @@ def update_price(prices: list, client_id, seller_token):
         seller_token (str): Ключ API Ozon.
 
     Returns:
-        any: Возвращает ответ API Ozon в формате JSON.
+        list: Возвращает ответ API Ozon в формате JSON.
 
     Example:
         >>> update_price([12000, 13000, 24000], client_id, seller_token)
@@ -105,7 +105,7 @@ def update_stocks(stocks: list, client_id, seller_token):
         seller_token (str): Ключ API Ozon.
 
     Returns:
-        any: Возвращает ответ API Ozon в формате JSON.
+        list: Возвращает ответ API Ozon в формате JSON.
 
     Example:
         >>> update_stocks(stocks, client_id, seller_token)
