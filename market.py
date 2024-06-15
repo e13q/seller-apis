@@ -11,6 +11,19 @@ logger = logging.getLogger(__file__)
 
 
 def get_product_list(page, campaign_id, access_token):
+    """Получить список товаров в магазине Yandex Market.
+
+    Args:
+        page (str): Последний просмотренный товар.
+        campaign_id (str): Идентификатор компании на Yandex Market.
+        access_token (str): Ключ API Yandex Market.
+
+    Returns:
+        any: Данные из ответа поля "result" ответа в формате json.
+
+    Example:
+        >>> get_product_list(page, campaign_id, access_token)
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -30,6 +43,19 @@ def get_product_list(page, campaign_id, access_token):
 
 
 def update_stocks(stocks, campaign_id, access_token):
+    """Обновить остатки в базе Yandex Market.
+
+    Args:
+        stocks (list): Список остатков.
+        campaign_id (str): Идентификатор компании на Yandex Market.
+        access_token (str): Ключ API Yandex Market.
+
+    Returns:
+        any: Возвращает ответ API Yandex Market в формате JSON.
+
+    Example:
+        >>> update_stocks(stocks, campaign_id, access_token)
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -46,6 +72,19 @@ def update_stocks(stocks, campaign_id, access_token):
 
 
 def update_price(prices, campaign_id, access_token):
+    """Обновить цены товаров в базе Yandex Market.
+
+    Args:
+        prices (list): Список цен.
+        campaign_id (str): Идентификатор компании на Yandex Market.
+        access_token (str): Ключ API Yandex Market.
+
+    Returns:
+        any: Возвращает ответ API Yandex Market в формате JSON.
+
+    Example:
+        >>> update_price([12000, 13000, 24000], campaign_id, access_token)
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -62,7 +101,18 @@ def update_price(prices, campaign_id, access_token):
 
 
 def get_offer_ids(campaign_id, market_token):
-    """Получить артикулы товаров Яндекс маркета"""
+    """Получить артикулы товаров магазина Yandex Market.
+
+    Args:
+        campaign_id (str): Идентификатор компании на Yandex Market.
+        market_token (str): Ключ API Yandex Market.
+
+    Returns:
+        offer_ids (list): Список артикулов.
+
+    Example:
+        >>> get_offer_ids(campaign_id, market_token)
+    """
     page = ""
     product_list = []
     while True:
@@ -78,6 +128,19 @@ def get_offer_ids(campaign_id, market_token):
 
 
 def create_stocks(watch_remnants, offer_ids, warehouse_id):
+    """Создать список остатков по файлу ostatki.xls и данным с Yandex Market.
+
+    Args:
+        watch_remnants (dict): Cписок данных из файла ostatki.xls.
+        offer_ids (list): Список артикулов.
+        warehouse_id (str): Идентификатор склада.
+
+    Returns:
+        stocks (list): Список остатков по файлу ostatki.xls и данным с Yandex Market.
+
+    Example:
+        >>> create_stocks(watch_remnants, offer_ids, warehouse_id)
+    """
     # Уберем то, что не загружено в market
     stocks = list()
     date = str(datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z")
@@ -123,6 +186,18 @@ def create_stocks(watch_remnants, offer_ids, warehouse_id):
 
 
 def create_prices(watch_remnants, offer_ids):
+    """Создать список сконвертированных из файла цен.
+
+    Args:
+        watch_remnants (dict): Cписок данных из файла ostatki.xls.
+        offer_ids (list): Список артикулов.
+
+    Returns:
+        prices (list): Список цен.
+
+    Example:
+        >>> create_prices(watch_remnants, offer_ids)
+    """
     prices = []
     for watch in watch_remnants:
         if str(watch.get("Код")) in offer_ids:
@@ -143,6 +218,19 @@ def create_prices(watch_remnants, offer_ids):
 
 
 async def upload_prices(watch_remnants, campaign_id, market_token):
+    """Загрузить цены.
+
+    Args:
+        watch_remnants (dict): Cписок данных из файла ostatki.xls.
+        campaign_id (str): Идентификатор компании на Yandex Market.
+        market_token (str): Ключ API Yandex Market.
+
+    Returns:
+        list: Список обновлённых цен.
+
+    Correct example:
+        >>> upload_prices(watch_remnants, campaign_id, market_token)
+    """
     offer_ids = get_offer_ids(campaign_id, market_token)
     prices = create_prices(watch_remnants, offer_ids)
     for some_prices in list(divide(prices, 500)):
@@ -151,6 +239,20 @@ async def upload_prices(watch_remnants, campaign_id, market_token):
 
 
 async def upload_stocks(watch_remnants, campaign_id, market_token, warehouse_id):
+    """Загрузить остатки.
+
+    Args:
+        watch_remnants (dict): Cписок данных из файла ostatki.xls.
+        campaign_id (str): Идентификатор компании на Yandex Market.
+        market_token (str): Ключ API Yandex Market.
+        warehouse_id (str): Идентификатор склада.
+
+    Returns:
+        tuple: Список не пустых остатков и список остатков.
+
+    Correct example:
+        >>> upload_stocks(watch_remnants,  campaign_id, market_token, warehouse_id)
+    """
     offer_ids = get_offer_ids(campaign_id, market_token)
     stocks = create_stocks(watch_remnants, offer_ids, warehouse_id)
     for some_stock in list(divide(stocks, 2000)):
@@ -162,6 +264,22 @@ async def upload_stocks(watch_remnants, campaign_id, market_token, warehouse_id)
 
 
 def main():
+    """Основная функция, обновляющая остатки и изменяющая цены.
+
+    Raises:
+        ReadTimeout: Превышено время ожидания.
+        ConnectionError: Ошибка соединения.
+        Exception: ERROR_2.
+
+    Notes:
+        DBS - Delivery by Seller
+        (доставкой, хранением и сборкой занимается владелец).
+        FBS - Fulfillment by Seller
+        (доставкой занимается Yandex, лишь хранение и сборка на владельце).
+
+    Correct example:
+        >>> main()
+    """
     env = Env()
     market_token = env.str("MARKET_TOKEN")
     campaign_fbs_id = env.str("FBS_ID")

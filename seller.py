@@ -99,11 +99,16 @@ def update_price(prices: list, client_id, seller_token):
 def update_stocks(stocks: list, client_id, seller_token):
     """Обновить остатки в базе Ozon.
 
+    Args:
+        stocks (list): Список остатков.
+        client_id (str): Идентификатор клиента Ozon.
+        seller_token (str): Ключ API Ozon.
+
     Returns:
         any: Возвращает ответ API Ozon в формате JSON.
 
     Example:
-        >>> update_stocks()
+        >>> update_stocks(stocks, client_id, seller_token)
     """
     url = "https://api-seller.ozon.ru/v1/product/import/stocks"
     headers = {
