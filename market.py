@@ -19,7 +19,7 @@ def get_product_list(page, campaign_id, access_token):
         access_token (str): Ключ API Yandex Market.
 
     Returns:
-        list: Данные из ответа поля "result" ответа в формате json.
+        list: Список товаров из магазина Yandex Market в формате json.
 
     Example:
         >>> get_product_list(page, campaign_id, access_token)

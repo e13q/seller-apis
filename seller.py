@@ -20,7 +20,7 @@ def get_product_list(last_id, client_id, seller_token):
         seller_token (str): Ключ API Ozon.
 
     Returns:
-        list: Данные из ответа поля "result" ответа в формате json.
+        list: Список товаров из магазина Ozon в формате json.
 
     Example:
         >>> get_product_list(last_id, client_id, seller_token)
