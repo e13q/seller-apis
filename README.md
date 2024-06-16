@@ -1,13 +1,14 @@
-# Скрипты для автообновления цен и остатков в базах Ozon и Yandex Market
+# Обновление цен и остатков в базах Ozon и Yandex Market
 Данные скрипты позволяют автоматизировать процесс обновления цен и остатков в базах интернет-магазинов Ozon и Yandex Market.
 
 ## seller.py
 Для запуска данного скрипта потребуются:
 
-    Идентификатор клиента Ozon (CLIENT_ID);
-    Ключ API Ozon (SELLER_TOKEN).
+    Идентификатор клиента Ozon (CLIENT_ID)
+    Ключ API Ozon (SELLER_TOKEN)
 
 Данные необходимо загрузить в файл .env
+
 seller.py позволяет обновить остатки и цены на сайте Ozon, используя данные из [файла](https://timeworld.ru/upload/files/ostatki.zip)  
 
 Данный скрипт содержит в себе функционал для конвертации цен, получения актуальных данных от основного [ресурса](https://timeworld.ru/), получения списка товаров и их артикулов в магазине Ozon, обновление цен и остатков в магазине Ozon.
@@ -20,11 +21,11 @@ py seller.py
 ## market.py
 Для запуска данного скрипта потребуются:
 
-    FBS идентификатор компании на Yandex Market (FBS_ID);
-    DBS идентификатор компании на Yandex Market (DBS_ID);
-    Ключ API Yandex Market (MARKET_TOKEN);
-    Идентификатор склада FBS (WAREHOUSE_FBS_ID);
-    Идентификатор склада DBS (WAREHOUSE_DBS_ID).
+    FBS идентификатор компании на Yandex Market (FBS_ID)
+    DBS идентификатор компании на Yandex Market (DBS_ID)
+    Ключ API Yandex Market (MARKET_TOKEN)
+    Идентификатор склада FBS (WAREHOUSE_FBS_ID)
+    Идентификатор склада DBS (WAREHOUSE_DBS_ID)
 
 Данные необходимо загрузить в файл .env
 
